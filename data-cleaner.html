@@ -129,8 +129,32 @@
         // Display raw inventory on screen immediately
         document.getElementById("rawDisplay").textContent = JSON.stringify(dirtyInventory, null, 2);
 
-        // YOUR CODE WILL GO HERE
+        // Approach B: Using the .filter() array method
+        function cleanData(array) {
+            return array.filter(item =>
+                // Must be a string AND not empty/whitespace AND not "UNKNOWN_PRODUCT"
+                typeof item === "string" &&
+                item.trim() !== "" &&
+                item !== "UNKNOWN_PRODUCT"
+            );
+        }
+
+        // Handle button click to clean and display data
+        document.getElementById("cleanBtn").addEventListener("click", function () {
+            const cleanedInventory = cleanData(dirtyInventory);
+            const listDisplay = document.getElementById("cleanListDisplay");
+
+            // Clear previous results
+            listDisplay.innerHTML = "";
+
+            // Add each clean item as a list item
+            cleanedInventory.forEach(product => {
+                const listItem = document.createElement("li");
+                listItem.textContent = product;
+                listDisplay.appendChild(listItem);
+            });
+        });
     </script>
 </body>
 
-</html>
+</html> 
